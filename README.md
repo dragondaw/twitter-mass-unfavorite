@@ -6,7 +6,10 @@ Automatically remove all your Twitter favorites with a Chrome extension.
 Installation
 ----
 
-Go to the Chrome Webstore and install the extension https://chrome.google.com/webstore/detail/unfav.
+* Download the extension from https://github.com/tekool/twitter-mass-unfavorite/raw/master/unfav.crx.
+* Chrome will warn you that you cannot install it directly from Github, this is normal.
+* Open Chrome > settings > extensions (or type chrome://extensions/ in the address bar).
+* Drag and drop the downloaded extension file into the extensions panel.
 
 License
 ----
