@@ -3,8 +3,10 @@
 	"use strict";
 
 	var
+		timeout,
+		lastUrl,
 		started = true,
-		unfavByPage = 10,
+		unfavByPage = 15,
 		unfavDelay = 1000,
 		unfaved = 0
 	;
@@ -15,8 +17,14 @@
 	 */
 	function refresh()
 	{
+		clearTimeout(timeout);
 		if( started === true )
-			unfavNext();
+			timeout = setTimeout( unfavNext, unfavDelay );
+	}
+
+	function removeElement(element)
+	{
+    	element && element.parentNode && element.parentNode.removeChild(element);
 	}
 
 	/**
@@ -28,17 +36,23 @@
 			return;
 
 		if( unfaved >= unfavByPage )
-			return document.location.refresh();
+			return document.location.reload();
 
-		var next = document.querySelector("button.ProfileTweet-actionButtonUndo.js-actionFavorite");
-		if( !next[0] )
-			return;
+		var favorites = document.querySelectorAll("button.ProfileTweet-actionButtonUndo.js-actionFavorite");
+		for( var i=0; i<favorites.length; i++ )
+		{
+			var favorite = favorites[0];
+			if( favorite && !favorite.hidden )
+			{
+				favorite.click();
+				removeElement(favorite);
+				unfaved++;
+				break;
+			}
+		}
 
-		next.style.width = "50px";
-		next.style.height = "50px";
-
-		unfaved++;
-		setTimeout( unfavNext, unfavDelay );
+		clearTimeout(timeout);
+		timeout = setTimeout( unfavNext, unfavDelay );
 	}
 
 	/**
@@ -52,6 +66,19 @@
 
 			refresh();
 		});
+	}
+
+	/**
+	 * We have to force the icon to display even when the URL changes in the address bar.
+	 */
+	function displayIcon()
+	{
+		if( lastUrl != document.location.href )
+			chrome.extension.sendMessage("displayIcon");
+
+		lastUrl = document.location.href;
+
+		setTimeout( displayIcon, 1000 );
 	}
 
 	chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
