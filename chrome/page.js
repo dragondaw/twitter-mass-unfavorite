@@ -6,8 +6,8 @@
 		timeout,
 		lastUrl,
 		started = true,
-		unfavByPage = 10,
-		unfavDelay = 2500,
+		unfavByPage = 5,
+		unfavDelay = 1000,
 		unfaved = 0
 	;
 
