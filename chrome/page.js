@@ -6,8 +6,8 @@
 		timeout,
 		lastUrl,
 		started = true,
-		unfavByPage = 15,
-		unfavDelay = 1000,
+		unfavByPage = 10,
+		unfavDelay = 2500,
 		unfaved = 0
 	;
 
@@ -32,6 +32,9 @@
 	 */
 	function unfavNext()
 	{
+		if( document.location.href != "https://twitter.com/favorites" )
+			return;
+
 		if( started !== true )
 			return;
 
@@ -41,8 +44,8 @@
 		var favorites = document.querySelectorAll("button.ProfileTweet-actionButtonUndo.js-actionFavorite");
 		for( var i=0; i<favorites.length; i++ )
 		{
-			var favorite = favorites[0];
-			if( favorite && !favorite.hidden )
+			var favorite = favorites[i];
+			if( favorite && !favorite.hidden && getComputedStyle(favorite).display === "inline-block" )
 			{
 				favorite.click();
 				removeElement(favorite);
