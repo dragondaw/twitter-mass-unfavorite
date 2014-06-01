@@ -1,0 +1,47 @@
+{
+	"manifest_version": 2,
+	"name": "Twitter Mass Unfav",
+	"short_name": "Unfav",
+	"version": "1.0.0",
+	"description": "Automatically removes Twitter favorites with a Chrome extension.",
+	"author":"Tekool - Fr�d�ric Saunier - www.tekool.net",
+	"homepage_url" :"https://github.com/tekool/twitter-mass-unfav",
+
+	"content_scripts":
+	[
+		{
+			"matches": ["https://twitter.com/favorites"],
+			"js": ["page.js"],
+			"run_at": "document_start",
+			"all_frames": true
+		}
+	],
+
+	"icons" :
+	{
+		"19": "icon/icon19.png",
+		"38" : "icon/icon38.png",
+	    	"48" : "icon/icon48.png",
+	    	"128" : "icon/icon128.png"
+	},
+
+	"page_action":
+	{
+		"default_title": "Unfav",
+		"default_icon":
+		{
+			"19": "icon/icon19.png",
+			"38" : "icon/icon38.png",
+			"48" : "icon/icon48.png",
+			"128" : "icon/icon128.png"
+		},
+		"default_popup": "options.html"
+	},
+
+	"background":
+	{
+		"scripts": ["background.js"]
+	},
+
+	"options_page": "options.html"
+}
