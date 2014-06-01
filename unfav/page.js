@@ -7,8 +7,8 @@
 		reloadTimeout,
 		lastUrl,
 		started = true,
-		reloadDelay = 10000,
-		unfavDelay = 1000
+		reloadDelay = 20000,
+		unfavDelay = 1500
 	;
 
 	/**
@@ -51,8 +51,8 @@
 
 		if( started !== true )
 			return;
-		
-		window.scrollBy(1000,0);
+
+		window.scrollBy(0,50);
 
 		var favorites = document.querySelectorAll("button.ProfileTweet-actionButtonUndo.js-actionFavorite");
 		for( var i=0; i<favorites.length; i++ )
