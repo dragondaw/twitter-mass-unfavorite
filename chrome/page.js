@@ -4,11 +4,11 @@
 
 	var
 		timeout,
+		reloadTimeout,
 		lastUrl,
 		started = true,
-		unfavByPage = 5,
-		unfavDelay = 1000,
-		unfaved = 0
+		reloadDelay = 10000,
+		unfavDelay = 1000
 	;
 
 	/**
@@ -18,13 +18,27 @@
 	function refresh()
 	{
 		clearTimeout(timeout);
+		clearTimeout(reloadTimeout);
+
 		if( started === true )
-			timeout = setTimeout( unfavNext, unfavDelay );
+		{
+			timeout = setTimeout(unfavNext, unfavDelay);
+			reloadTimeout = setTimeout(reload, reloadDelay);
+		}
 	}
 
 	function removeElement(element)
 	{
     	element && element.parentNode && element.parentNode.removeChild(element);
+	}
+
+	/**
+	 * Reload the whole page.
+	 */
+	function reload()
+	{
+		if( document.location.href === "https://twitter.com/favorites" )
+			document.location.reload();
 	}
 
 	/**
@@ -37,9 +51,8 @@
 
 		if( started !== true )
 			return;
-
-		if( unfaved >= unfavByPage )
-			return document.location.reload();
+		
+		window.scrollBy(1000,0);
 
 		var favorites = document.querySelectorAll("button.ProfileTweet-actionButtonUndo.js-actionFavorite");
 		for( var i=0; i<favorites.length; i++ )
@@ -49,7 +62,6 @@
 			{
 				favorite.click();
 				removeElement(favorite);
-				unfaved++;
 				break;
 			}
 		}
