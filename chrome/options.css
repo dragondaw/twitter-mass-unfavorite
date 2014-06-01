@@ -1,0 +1,34 @@
+html, body
+{
+    width:250px;
+    height:110px;
+    overflow:hidden;
+}
+
+body
+{
+    font-family: "Helvetic Neue", Helvetica, Arial;
+    font-size: 0.8em;
+    padding:5px;
+}
+
+.icon{
+
+    position:absolute;
+    top:5px;
+    left:190px;
+    background: url(icon/icon48.png) no-repeat;
+    opacity:0.5;
+}
+
+@-webkit-keyframes bounce
+{
+    0% {background: #ffffff;}
+    50% {background: #d9ffd6;}
+    100% {background: #ffffff;}
+}
+
+.saved
+{
+    -webkit-animation: bounce 0.3s linear;
+}
